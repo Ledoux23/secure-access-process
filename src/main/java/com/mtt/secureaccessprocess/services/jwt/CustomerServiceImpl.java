@@ -27,13 +27,9 @@ public class CustomerServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         //Write logic to fetch customer from database
-        //logger.info("Fetching customer from database for email: {}", email);
         Customer customer = customerRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Customer not found with email : " + email));
-
-        //logger.info("Customer found with email: {}", email);
-
-        // Return UserDetails object
+                // Return UserDetails object
         return new User(customer.getEmail(), customer.getPassword(), Collections.emptyList());
     }
 }

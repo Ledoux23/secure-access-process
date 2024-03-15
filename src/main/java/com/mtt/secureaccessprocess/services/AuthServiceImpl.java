@@ -36,9 +36,7 @@ public class AuthServiceImpl implements AuthService{
         customer.setPassword(hashPassword);
         customerRepository.save(customer);
         return true;
-        //Customer createdCustomer = customerRepository.save(customer);
-        //customer.setId(createdCustomer.getId());
-        //return customer;
+
     }
 }
 
