@@ -2,7 +2,15 @@ POST http://localhost:8080/signup
 Content-Type: application/json
 
 {
-  "email": "user2@yahoo.fr",
-  "name": "user2",
-  "password": "user2"
+  "email": "test2@yahoo.fr",
+  "name": "test2",
+  "password": "test2"
+}
+###
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "email": "admin@yahoo.fr",
+  "password": "admin"
 }
