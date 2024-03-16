@@ -1,3 +1,4 @@
+### sign up
 POST http://localhost:8080/signup
 Content-Type: application/json
 
@@ -6,7 +7,7 @@ Content-Type: application/json
   "name": "test2",
   "password": "test2"
 }
-###
+### login
 POST http://localhost:8080/login
 Content-Type: application/json
 
@@ -14,3 +15,8 @@ Content-Type: application/json
   "email": "admin@yahoo.fr",
   "password": "admin"
 }
+
+### access endpoint "/home"
+GET http://localhost:8080/api/home
+Authorization: Bearer REPLACE_THIS_WITH_TOKEN
+
