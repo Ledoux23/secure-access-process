@@ -20,23 +20,22 @@ public class AuthServiceImpl implements AuthService{
         this.passwordEncoder = passwordEncoder;
     }
 
-
     @Override
-    public boolean createCustomer(SignupRequest signupRequest) {
-        //check if customer already exist
-        if(customerRepository.existsByEmail(signupRequest.getEmail())){
-            return false;
+    public Customer createCustomer(SignupRequest signupRequest) {
+        //Check if customer already exist
+        if (customerRepository.existsByEmail(signupRequest.getEmail())) {
+            return null;
         }
 
-        //Hash de password before saving
         Customer customer = new Customer();
-        BeanUtils.copyProperties(signupRequest, customer);
+        BeanUtils.copyProperties(signupRequest,customer);
 
+        //Hash the password before saving
         String hashPassword = passwordEncoder.encode(signupRequest.getPassword());
         customer.setPassword(hashPassword);
-        customerRepository.save(customer);
-        return true;
-
+        Customer createdCustomer = customerRepository.save(customer);
+        customer.setId(createdCustomer.getId());
+        return customer;
     }
 }
 

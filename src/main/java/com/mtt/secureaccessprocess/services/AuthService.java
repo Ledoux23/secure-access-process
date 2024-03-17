@@ -1,8 +1,9 @@
 package com.mtt.secureaccessprocess.services;
 
 import com.mtt.secureaccessprocess.dto.SignupRequest;
+import com.mtt.secureaccessprocess.entities.Customer;
 
 public interface AuthService {
-    boolean createCustomer(SignupRequest signupRequest);
+    Customer createCustomer(SignupRequest signupRequest);
 
 }

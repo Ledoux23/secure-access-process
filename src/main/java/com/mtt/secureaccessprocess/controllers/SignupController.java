@@ -1,6 +1,7 @@
 package com.mtt.secureaccessprocess.controllers;
 
 import com.mtt.secureaccessprocess.dto.SignupRequest;
+import com.mtt.secureaccessprocess.entities.Customer;
 import com.mtt.secureaccessprocess.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,15 +24,12 @@ public class SignupController {
     }
 
     @PostMapping
-    public ResponseEntity<String> signupCustomer(@RequestBody SignupRequest signupRequest){
-
-        boolean isUserCreated = authService.createCustomer(signupRequest);
-
-        if (isUserCreated){
-            return ResponseEntity.status(HttpStatus.CREATED).body("Customer created successfully");
+    public ResponseEntity<?> signupCustomer(@RequestBody SignupRequest signupRequest) {
+        Customer createdCustomer = authService.createCustomer(signupRequest);
+        if (createdCustomer != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to create customer");
         }
-
     }
 }

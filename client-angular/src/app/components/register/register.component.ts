@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { JwtService } from '../../service/jwt.service';
+
 
 @Component({
   selector: 'app-register',
@@ -11,7 +13,8 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup | undefined;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private service: JwtService
   ) { }
 
   ngOnInit(): void {
@@ -36,7 +39,14 @@ export class RegisterComponent implements OnInit {
   submitForm() {
     if (this.registerForm !== undefined) {
       console.log(this.registerForm.value);
-      
+      this.service.register(this.registerForm.value).subscribe(
+        (response) => {
+          if (response.id != null) {
+            console.log(response);
+            alert("Hello " + response.name);
+          }         
+        }
+      )
     }
   }
 
