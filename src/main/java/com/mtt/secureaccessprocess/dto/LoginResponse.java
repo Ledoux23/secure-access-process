@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class LoginResponse {
 
-    @JsonProperty("jwtToken")
-    private String jwtToken;
+    @JsonProperty("jwt")
+    private String jwt;
 
-    public LoginResponse(String jwtToken) {
-        this.jwtToken = jwtToken;
+    public LoginResponse(String jwt) {
+        this.jwt = jwt;
     }
 }
