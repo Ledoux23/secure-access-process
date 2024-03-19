@@ -15,11 +15,11 @@ export class DashboardComponent {
   ) { }
 
   ngOnInit() {
-    this.home();
+    this.welcome();
   }
 
-  home() {
-    this.service.home().subscribe(
+  welcome() {
+    this.service.welcome().subscribe(
       (response) => {
         console.log(response);
         this.message = response.message;

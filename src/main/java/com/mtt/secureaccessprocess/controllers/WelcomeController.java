@@ -1,16 +1,16 @@
 package com.mtt.secureaccessprocess.controllers;
 
-import com.mtt.secureaccessprocess.dto.HomeResponse;
+import com.mtt.secureaccessprocess.dto.WelcomeResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class HomeController {
+public class WelcomeController {
 
-    @GetMapping("/home")
-    public HomeResponse home(){
-        return new HomeResponse("Hello from Authorized API request.");
+    @GetMapping("/welcome")
+    public WelcomeResponse home(){
+        return new WelcomeResponse("Hello from Authorized API request.");
     }
 }
