@@ -1,12 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject  } from 'rxjs';
 
 const BASE_URL = ["http://localhost:8080/"]
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class JwtService {
 
   constructor(private http: HttpClient) { }
@@ -38,6 +39,15 @@ export class JwtService {
       // If no token is found, return an empty HttpHeaders
       return new HttpHeaders();
     }
+    
+  }
+
+  //a service to manage connection status
+  private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  isLoggedIn$ = this.isLoggedInSubject.asObservable(); 
+
+  updateLoginStatus(status: boolean) {
+    this.isLoggedInSubject.next(status);
   }
 
 }

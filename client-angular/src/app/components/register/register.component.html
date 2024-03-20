@@ -1,6 +1,6 @@
 <div class="container">
     <h2>Register</h2>
-    <form *ngIf="registerForm" [formGroup]="registerForm" (ngSubmit)=submitForm()>
+    <form *ngIf="registerForm" [formGroup]="registerForm" (ngSubmit)="submitForm()">
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" id="name" formControlName="name" />

@@ -11,24 +11,31 @@
             <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                        <a class="nav-link active" aria-current="page" routerLink="/home">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">À Propos</a>
+                        <a class="nav-link" routerLink="/home">À Propos</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/register">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/login">Login</a>
-                    </li>
-                </ul>
-
-                <form class="d-flex">
-                    <button class="btn btn-outline-info" type="button" (click)="logout()">Logout</button>
-                </form>
+                    <ng-container *ngIf="isLoggedIn">
+                        <li class="nav-item">
+                            <form class="d-flex">
+                                <button class="btn btn-outline-info" type="button" (click)="logout()">Logout</button>
+                            </form>
+                        </li>
+                    </ng-container>      
+                    <ng-container *ngIf="!isLoggedIn && !isLoginPage()">
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/login">Login</a>
+                        </li>
+                    </ng-container>
+                    <ng-container *ngIf="!isLoggedIn && !isRegisterPage()">
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/register">Register</a>
+                        </li>
+                    </ng-container>                                
+                </ul>                  
             </div>
         </div>
     </nav>
@@ -36,16 +43,16 @@
     <!-- Page content -->
     <div class="container mt-4">
         <!-- Page content here -->
+        <router-outlet></router-outlet>
     </div>
   
-    <router-outlet></router-outlet>
-    
     <!-- Footer -->
     <footer class="footer bg-light mt-4">
         <div class="container text-center">
             <span class="text-muted">© 2024 Mon Application. Tous droits réservés.</span>
         </div>
     </footer>
+    
 </div>
 
 

@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
-//import { LogoutComponent } from './components/logout/logout.component';
+
 
 
 
@@ -17,7 +17,6 @@ import { HomeComponent } from './components/home/home.component';
     RegisterComponent,
     LoginComponent,
     HomeComponent,
-    //LogoutComponent
   ],
   imports: [
     BrowserModule,

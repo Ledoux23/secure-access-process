@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { JwtService } from '../../service/jwt.service';
 
 
@@ -14,7 +15,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private service: JwtService
+    private service: JwtService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -43,7 +45,8 @@ export class RegisterComponent implements OnInit {
         (response) => {
           if (response.id != null) {
             console.log(response);
-            alert("Hello " + response.name);
+            alert("Hello " + response.name + " signup successfully !");
+            this.router.navigateByUrl("/home");
           }         
         }
       )
