@@ -1,8 +1,8 @@
 package com.mtt.secureaccessprocess.services;
 
 import com.mtt.secureaccessprocess.dto.SignupRequest;
-import com.mtt.secureaccessprocess.entities.Customer;
-import com.mtt.secureaccessprocess.repository.CustomerRepository;
+import com.mtt.secureaccessprocess.entities.User;
+import com.mtt.secureaccessprocess.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,31 +11,31 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthServiceImpl implements AuthService{
 
-    private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AuthServiceImpl(CustomerRepository customerRepository, PasswordEncoder passwordEncoder) {
-        this.customerRepository = customerRepository;
+    public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public Customer createCustomer(SignupRequest signupRequest) {
+    public User createUser(SignupRequest signupRequest) {
         //Check if customer already exist
-        if (customerRepository.existsByEmail(signupRequest.getEmail())) {
+        if (userRepository.existsByEmail(signupRequest.getEmail())) {
             return null;
         }
 
-        Customer customer = new Customer();
-        BeanUtils.copyProperties(signupRequest,customer);
+        User user = new User();
+        BeanUtils.copyProperties(signupRequest, user);
 
         //Hash the password before saving
         String hashPassword = passwordEncoder.encode(signupRequest.getPassword());
-        customer.setPassword(hashPassword);
-        Customer createdCustomer = customerRepository.save(customer);
-        customer.setId(createdCustomer.getId());
-        return customer;
+        user.setPassword(hashPassword);
+        User createdUser = userRepository.save(user);
+        user.setId(createdUser.getId());
+        return user;
     }
 }
 

@@ -26,7 +26,6 @@ export class JwtService {
     })
   }
 
-  
   private createAuthorizationHeader(): HttpHeaders {
     const jwtToken = localStorage.getItem('jwt');
     if (jwtToken) {
@@ -42,6 +41,35 @@ export class JwtService {
     
   }
 
+  /************************ BEGIN OF POST *******************/
+
+  createPost(postData: any): Observable<any> {
+    return this.http.post(BASE_URL + 'post', postData, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
+  getPostById(postId: number): Observable<any> {
+    return this.http.get(BASE_URL + 'post/' + postId, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
+  updatePost(postId: number, postData: any): Observable<any> {
+    return this.http.put(BASE_URL + 'post/' + postId, postData, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
+  deletePost(postId: number): Observable<any> {
+    return this.http.delete(BASE_URL + 'post/' + postId, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
+  /************************ END OF POST *******************/
+
+
   //a service to manage connection status
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.isLoggedInSubject.asObservable(); 
@@ -49,5 +77,6 @@ export class JwtService {
   updateLoginStatus(status: boolean) {
     this.isLoggedInSubject.next(status);
   }
+  
 
 }

@@ -2,7 +2,7 @@ package com.mtt.secureaccessprocess.controllers;
 
 import com.mtt.secureaccessprocess.dto.LoginRequest;
 import com.mtt.secureaccessprocess.dto.LoginResponse;
-import com.mtt.secureaccessprocess.services.jwt.CustomerServiceImpl;
+import com.mtt.secureaccessprocess.services.jwt.UserServiceImpl;
 import com.mtt.secureaccessprocess.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,13 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     private final AuthenticationManager authentication;
-    private final CustomerServiceImpl customerService;
+    private final UserServiceImpl userService;
     private final JwtUtil jwtUtil;
 
     @Autowired
-    public LoginController(AuthenticationManager authentication, CustomerServiceImpl customerService, JwtUtil jwtUtil) {
+    public LoginController(AuthenticationManager authentication, UserServiceImpl userService, JwtUtil jwtUtil) {
         this.authentication = authentication;
-        this.customerService = customerService;
+        this.userService = userService;
         this.jwtUtil = jwtUtil;
     }
 
@@ -45,7 +45,7 @@ public class LoginController {
 
         UserDetails userDetails;
         try {
-            userDetails = customerService.loadUserByUsername(loginRequest.getEmail());
+            userDetails = userService.loadUserByUsername(loginRequest.getEmail());
         } catch(UsernameNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

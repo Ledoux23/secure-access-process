@@ -1,6 +1,6 @@
 package com.mtt.secureaccessprocess.filters;
 
-import com.mtt.secureaccessprocess.services.jwt.CustomerServiceImpl;
+import com.mtt.secureaccessprocess.services.jwt.UserServiceImpl;
 import com.mtt.secureaccessprocess.utils.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -19,11 +19,11 @@ import java.io.IOException;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    private final CustomerServiceImpl customerService;
+    private final UserServiceImpl customerService;
     private final JwtUtil jwtUtil;
 
     @Autowired
-    public JwtRequestFilter(CustomerServiceImpl customerService, JwtUtil jwtUtil) {
+    public JwtRequestFilter(UserServiceImpl customerService, JwtUtil jwtUtil) {
         this.customerService = customerService;
         this.jwtUtil = jwtUtil;
     }
