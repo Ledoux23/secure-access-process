@@ -2,7 +2,6 @@ package com.mtt.secureaccessprocess.controllers;
 
 import com.mtt.secureaccessprocess.dto.LoginRequest;
 import com.mtt.secureaccessprocess.dto.LoginResponse;
-import com.mtt.secureaccessprocess.entities.Role;
 import com.mtt.secureaccessprocess.services.jwt.UserServiceImpl;
 import com.mtt.secureaccessprocess.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/login")
@@ -56,11 +51,6 @@ public class LoginController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        // Get user role
-        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-        List<String> roles = authorities.stream()
-                .map(GrantedAuthority::getAuthority)
-                .toList();
         // Generate the token including the user role
         String jwt = jwtUtil.generateToken(userDetails.getUsername());
 
