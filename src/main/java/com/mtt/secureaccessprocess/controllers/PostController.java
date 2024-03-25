@@ -6,6 +6,7 @@ import com.mtt.secureaccessprocess.services.post.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class PostController {
     }
 
     @PostMapping("/{userId}")
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Post> createPost(@PathVariable("userId") long userId, @RequestBody Post post) {
         Post createdPost = postService.createPost(post, userId);
         if (createdPost == null) {
@@ -42,6 +44,7 @@ public class PostController {
     }
 
     @PutMapping("/{userId}/{postId}")
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Post> updatePost(@PathVariable("userId") long userId, @PathVariable("postId") long postId, @RequestBody Post post) {
         Post updatedPost = postService.updatePost(userId, postId, post);
         if (updatedPost == null) {
@@ -51,6 +54,7 @@ public class PostController {
     }
 
     @DeleteMapping("/{id}")
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deletePost(@PathVariable("id") long id) {
         postService.deletePost(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

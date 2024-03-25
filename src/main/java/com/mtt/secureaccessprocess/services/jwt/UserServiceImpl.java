@@ -5,12 +5,17 @@ import org.slf4j.LoggerFactory;
 import com.mtt.secureaccessprocess.entities.User;
 import com.mtt.secureaccessprocess.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserDetailsService {
@@ -27,8 +32,14 @@ public class UserServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         //Write logic to fetch customer from database
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Customer not found with email : " + email));
-                // Return UserDetails object
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), Collections.emptyList());
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email : " + email));
+        //
+        // Créer une liste d'autorités avec le rôle de l'utilisateur
+        List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().name()));
+        //
+
+        // Retourner UserDetails avec le nom d'utilisateur, le mot de passe, et les rôles
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
+        //
     }
 }
